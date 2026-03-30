@@ -10,17 +10,15 @@
 	let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 </script>
 
-<!-- <canvas class="fundo"></canvas> -->
-
 <main>
 
 	<div class="sobre-mim">
 		
-		<img src={Foto} alt="foto minha" height="300">
+		<img src={Foto} alt="foto minha" height="250" style="grid-area: fot">
 
-		<h1>Oi, eu sou o <strong>Breno</strong></h1>
+		<h1 style="grid-area: sau">Oi, eu sou o <strong>Breno</strong></h1>
 
-		<p>
+		<p style="grid-area: bio">
 			Sou um dev entusiasta, e desejo poder trabalhar na área.
 			Gosto de conhecer tecnologias novas, e me desafiar a me manter 
 			criativo e inovador.
@@ -56,15 +54,38 @@
 </main>
 
 <footer>
-	<img src={GitHub} alt="logo do github" class="icone"/>
-	<a href="https://github.com/BreakNoh">github</a>
-	<img src={EMail} alt="icone de carta" class="icone"/>
-	<a href="mailto://eu@bre.dev.br">contato</a>
-
+	<a href="https://github.com/BreakNoh"><img src={GitHub} alt="logo do github" class="icone"/>github</a>
+	<a href="mailto://eu@bre.dev.br"><img src={EMail} alt="icone de carta" class="icone"/>contato</a>
 </footer>
 
 
 <style>
+	main {
+		margin-inline: min(15%, 30rem);
+
+		@media screen and (width <= 500px){
+			margin-inline: 1rem;
+		}
+	}
+	.tecnologias {
+		display: flex;
+
+		& button {
+			flex: 1
+		}
+	}
+	img {
+		margin-inline: auto;
+	}
+	.sobre-mim {
+		display: grid;
+		
+		grid-template-areas: "fot sau" "fot bio";
+
+		@media screen and (width <= 600px){
+			grid-template-areas: "fot" "sau" "bio";
+		}
+	}
 	.icone{
 		aspect-ratio: 1 / 1;
 		height: 2rem;
