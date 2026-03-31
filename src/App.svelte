@@ -1,20 +1,19 @@
 <script lang="ts">
-import Foto from "./assets/minha_foto.jpg"
-import IconeEMail from "./lib/IconeEMail.svelte";
-import IconeGH from "./lib/IconeGH.svelte"
-import CMDLine from "./lib/CMDLine.svelte";
+	import Foto from "./assets/minha_foto.jpg"
+	import IconeEMail from "./lib/IconeEMail.svelte";
+	import IconeGH from "./lib/IconeGH.svelte"
+	import CMDLine from "./lib/CMDLine.svelte";
+	import { MediaQuery } from 'svelte/reactivity';
 
-
-let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 </script>
 
 <main>
 	<div class="sobre-mim">
 		
-		<img src={Foto} alt="foto minha" height="250" style="grid-area: fot">
+		<img src={Foto} alt="foto minha" style="grid-area: fot">
 
-		<div style="grid-area: sau" class="saudacao">
-			<span class="vulgo">
+		<div class="infos">
+			<div class="vulgo">
 				<CMDLine 
 					cursor={false}
 					cifrao={false}
@@ -25,29 +24,32 @@ let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 					["=", "operador"],
 					['"BreakNoh"', "primitivo"],
 				]}/>
-
-			</span>
+			</div>
 			<h1 style="grid-area: sau">
 				<CMDLine 
+					cursor={false}
 					tokens={[
 					["echo", "palavra-chave"],
 					[" ", "espaco"],
+					["\\", "operador"],
+				]}/>
+				<br>
+				<CMDLine 
+					cursor={true}
+					cifrao={false}
+					tokens={[
 					['"oi, eu sou o', "primitivo"],
 					[" ", "espaco"],
 					["$BRENO", "variavel"],
 					['"', "primitivo"],
 				]}/>
 			</h1>
-		</div>
-
-
-		<div style="grid-area: bio">
 			<h2 >
 				<CMDLine 
 					tokens={[
 					["cat", "palavra-chave"],
 					[" ", "espaco"],
-					['./descricao.md', "primitivo"],
+					['sobre-mim.md', "primitivo"],
 				]}/>
 			</h2>
 			<p>
@@ -56,7 +58,6 @@ let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 				criativo e inovador.
 			</p>
 		</div>
-
 	</div>
 
 </main>
@@ -67,94 +68,85 @@ let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 			tokens={[
 			["ls", "palavra-chave"],
 			[" ", "espaco"],
-			['./socials', "primitivo"],
+			['socials', "primitivo"],
 		]}/>
 	</div>
 	<div class="sociais">
-		<a href="https://github.com/BreakNoh" class="link-social"><IconeGH/> github</a>
-		<a href="mailto://eu@bre.dev.br"class="link-social"><IconeEMail/> contato</a>
+		<a href="https://github.com/BreakNoh" class="link-social"><IconeGH/>github</a>
+		<a href="mailto://eu@bre.dev.br"class="link-social"><IconeEMail/>contato</a>
 	</div>
 </footer>
 
 
 <style>
-	:global(:root) {
-		background-color: var(--fundo-0);
-	}
-	:global(html, body) {
-        margin: 0;  
-        padding: 0;
-    }
 	main {
 		padding-block: 2rem;
 		padding-inline: 3rem;
 		background-color: var(--fundo-1);
-		margin-inline: min(15%, 30rem);
 		border-radius: 16px;
 
 		margin-top: max(5%, 1rem);
 
-		@media screen and (width <= 500px){
-			margin-inline: 1rem;
+		margin-inline: clamp(1rem, 15%, 30rem);
+		@media screen and (width <= 950px){
+			margin-inline: clamp(.5rem, 5%, 5rem);
 		}
 	}
 	p {
 		color: white;
 		max-width: 30rem;
 	}
+	h1 {
+		margin-block: .5rem 1rem;
+		font-size: clamp(16px, 5vw, 32px);
+	}
+	h2 {
+		margin-block: 1rem .5rem;
+		font-size: clamp(8px, 5vw, 24px);
+	}
+	img {
+		margin-inline: auto;
+		border-radius: 20px;
+		width: clamp(80px, 100%, 275px);
+	}
+	
+	.sobre-mim {
+		display: flex;
+		align-items: center;
+		column-gap: 1rem;
+
+		@media screen and (width <= 850px){
+			flex-direction: column;
+			row-gap: 1rem;
+
+			& .infos .vulgo {
+				text-align: center;
+			}
+		}
+	}
+
 	footer {
 		display: grid;
 		justify-content: center;
 		margin-top: 3rem;
-
-		& div {
-			text-align: center;
-		}
 	}
-	.link-social {
+	footer div {
+		text-align: center;
+	}
+
+	.sociais {
+		margin-top: .5rem;
+		display:  flex;
+		column-gap: 2rem;
+	}
+	.sociais a {
 		display: grid;
 		column-gap: .5rem;
 		text-decoration: none;
 		grid-template-columns: 1.5rem 1fr;
 		color: white;
-
-		&:hover {
-			text-decoration: underline;
-		}
 	}
-
-	img {
-		margin-inline: auto;
-		border-radius: 20px;
+	.sociais a:hover {
+		text-decoration: underline;
 	}
-	.sociais {
-		margin-top: .5rem;
-		display:  flex;
-		/* justify-content: center; */
-		column-gap: 2rem;
-	}
-
-	h1 {
-		margin-block: .5rem 1rem;
-	}
-	h2 {
-		margin-block: 1rem .5rem;
-	}
-
-	.sobre-mim {
-		display: grid;
-		
-		grid-template-areas: "fot sau" "fot bio";
-		column-gap: 1rem;
-		grid-template-rows: auto 1fr;
-
-		@media screen and (width <= 850px){
-			grid-template-areas: "fot" "sau" "bio";
-		}
-	}
-	.icone{
-		aspect-ratio: 1 / 1;
-		height: 2rem;
-	}
-
 </style>
