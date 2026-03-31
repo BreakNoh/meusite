@@ -3,7 +3,6 @@
 	import IconeEMail from "./lib/IconeEMail.svelte";
 	import IconeGH from "./lib/IconeGH.svelte"
 	import CMDLine from "./lib/CMDLine.svelte";
-	import { MediaQuery } from 'svelte/reactivity';
 
 </script>
 
@@ -105,9 +104,10 @@
 		font-size: clamp(8px, 5vw, 24px);
 	}
 	img {
+		aspect-ratio: 3 / 4;
 		margin-inline: auto;
 		border-radius: 20px;
-		width: clamp(80px, 100%, 275px);
+		height: max(80px, 30vh);
 	}
 	
 	.sobre-mim {
