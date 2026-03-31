@@ -1,10 +1,11 @@
 <script lang="ts">
-	 import Foto from "./assets/minha_foto.jpg"
-    import IconeEMail from "./lib/IconeEMail.svelte";
-	 import IconeGH from "./lib/IconeGH.svelte"
+import Foto from "./assets/minha_foto.jpg"
+import IconeEMail from "./lib/IconeEMail.svelte";
+import IconeGH from "./lib/IconeGH.svelte"
+import CMDLine from "./lib/CMDLine.svelte";
 
 
-	let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
+let tecnoligia_em_destaque:"web" | "python" | "rust" = $state("python")
 </script>
 
 <main>
@@ -14,43 +15,45 @@
 
 		<div style="grid-area: sau" class="saudacao">
 			<span class="vulgo">
-				<span class="keyword">export</span> 
-				{" "}
-				<span class="var">BRENO</span>{"="}<span class="string">"BreakNoh"</span>
+				<CMDLine 
+					cursor={false}
+					cifrao={false}
+					tokens={[
+					["export ", "palavra-chave"],
+					[" ", "espaco"],
+					["BRENO", "variavel"],
+					["=", "operador"],
+					['"BreakNoh"', "primitivo"],
+				]}/>
+
 			</span>
 			<h1 style="grid-area: sau">
-				<span class="cifrao">$</span> 
-				{" "}
-				<span class="cmd">echo</span> 
-				{" "}
-				<span class="string">
-					"oi, eu sou o 
-					<span class="var">$BRENO</span>"
-				</span><span class="cursor">
-					_
-				</span>
+				<CMDLine 
+					tokens={[
+					["echo", "palavra-chave"],
+					[" ", "espaco"],
+					['"oi, eu sou o', "primitivo"],
+					[" ", "espaco"],
+					["$BRENO", "variavel"],
+					['"', "primitivo"],
+				]}/>
 			</h1>
 		</div>
 
 
 		<div style="grid-area: bio">
 			<h2 >
-				<span class="cifrao">$</span> 
-				{" "}
-				<span class="cmd">cat</span> 
-				{" "}
-				<span class="string">
-					./descricao.md
-				</span><span class="cursor">
-					_
-				</span>
-
+				<CMDLine 
+					tokens={[
+					["cat", "palavra-chave"],
+					[" ", "espaco"],
+					['./descricao.md', "primitivo"],
+				]}/>
 			</h2>
 			<p>
-			Sou um dev entusiasta, e desejo poder trabalhar na área.
-			Gosto de conhecer tecnologias novas, e me desafiar a me manter 
-			criativo e inovador.
-
+				Sou um dev entusiasta, e desejo poder trabalhar na área.
+				Gosto de conhecer tecnologias novas, e me desafiar a me manter 
+				criativo e inovador.
 			</p>
 		</div>
 
@@ -59,19 +62,14 @@
 </main>
 
 <footer>
-	<span>
-		<span class="cifrao">$</span> 
-		{" "}
-		<span class="cmd">ls</span> 
-		{" "}
-		<span class="string">
-			./sociais
-		</span><span class="cursor">
-			_
-		</span>
-
-	</span>
-
+	<div>
+		<CMDLine 
+			tokens={[
+			["ls", "palavra-chave"],
+			[" ", "espaco"],
+			['./socials', "primitivo"],
+		]}/>
+	</div>
 	<div class="sociais">
 		<a href="https://github.com/BreakNoh" class="link-social"><IconeGH/> github</a>
 		<a href="mailto://eu@bre.dev.br"class="link-social"><IconeEMail/> contato</a>
@@ -89,9 +87,9 @@
     }
 	main {
 		padding-block: 2rem;
-		padding-inline: 4rem;
+		padding-inline: 3rem;
 		background-color: var(--fundo-1);
-		margin-inline: min(10%, 30rem);
+		margin-inline: min(15%, 30rem);
 		border-radius: 16px;
 
 		margin-top: max(5%, 1rem);
@@ -104,58 +102,35 @@
 		color: white;
 		max-width: 30rem;
 	}
+	footer {
+		display: grid;
+		justify-content: center;
+		margin-top: 3rem;
+
+		& div {
+			text-align: center;
+		}
+	}
 	.link-social {
 		display: grid;
 		column-gap: .5rem;
 		text-decoration: none;
 		grid-template-columns: 1.5rem 1fr;
 		color: white;
-	}
-	.keyword {
-		color: var(--sec)
-	}
-	.string {
-		color: var(--ter)
-	}
-	.var {
-		color: var(--prim)
-	}
-	.cifrao {
-		color: white;
-	}
-	.cmd {
-		color: var(--sec);
-	}
 
-	@keyframes piscar {
-		0% {
-			opacity: 1;
+		&:hover {
+			text-decoration: underline;
 		}
-		50% {
-			opacity: 0;
-		}
-	}
-
-	.cursor {
-		animation-name: piscar;
-		animation-duration: 2s;
-		animation-delay: 0;
-		animation-timing-function: step-end;
-		animation-iteration-count: infinite;
 	}
 
 	img {
 		margin-inline: auto;
 		border-radius: 20px;
 	}
-	footer {
-		text-align: center;
-		margin-top: 3rem;
-	}
 	.sociais {
 		margin-top: .5rem;
 		display:  flex;
-		justify-content: center;
+		/* justify-content: center; */
 		column-gap: 2rem;
 	}
 
