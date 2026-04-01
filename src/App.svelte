@@ -179,8 +179,9 @@
         margin-top: clamp(1rem, 5vw, 3rem);
 
         margin-inline: clamp(1rem, 15%, 30rem);
-        @media screen and (width <= 950px) {
-            margin-inline: clamp(0.5rem, 5%, 5rem);
+
+        @media screen and (width <= 1200px) {
+            margin-inline: clamp(0.5rem, 10%, 30rem);
         }
     }
     p {
@@ -202,16 +203,12 @@
         aspect-ratio: 3 / 4;
         margin-inline: auto;
         border-radius: 20px;
-        height: max(80px, 30vh);
+        height: clamp(15vh, 30vw, 30vh);
 
-        /* border: 4px var(--fundo-0) solid; */
         box-shadow: 4px 4px 4px hsl(from var(--fundo-0) 0 0 8%);
-        /* box-shadow: 4px 4px white; */
     }
 
     .conteiner {
-        padding-block: 2rem;
-        padding-inline: 3rem;
         background-color: var(--fundo-1);
         border-radius: 8px;
 
@@ -221,6 +218,10 @@
         &:first-child {
             border-radius: 16px 16px 8px 8px;
         }
+
+		padding-inline: clamp(0.5rem, 5vw, 3rem);
+        padding-block: clamp(0.5rem, 5vw, 2rem);
+
     }
 
     .sobre-mim {
@@ -316,7 +317,7 @@
 
         padding-block: 1rem;
         margin-top: 1rem;
-        margin-inline: -3rem;
+		margin-inline: clamp(-3rem, -5vw, -.5rem);
 
         border-radius: 0 0 16px 16px;
         border-style: none;
