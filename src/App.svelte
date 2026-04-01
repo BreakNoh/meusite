@@ -3,6 +3,8 @@
     import IconeEMail from "./lib/IconeEMail.svelte";
     import IconeGH from "./lib/IconeGH.svelte";
     import CMDLine from "./lib/CMDLine.svelte";
+
+    let mostrando_projetos = $state(false);
 </script>
 
 <main>
@@ -63,15 +65,30 @@
 
     <div class="projetos conteiner">
         <h2>
-            <CMDLine
-                tokens={[
-                    ["ls", "palavra-chave"],
-                    [" ", "espaco"],
-                    ["meus-projetos", "primitivo"],
-                ]}
-            />
+            {#if mostrando_projetos}
+                <CMDLine
+                    tokens={[
+                        ["ls", "palavra-chave"],
+                        [" ", "espaco"],
+                        ["meus-projetos", "primitivo"],
+                    ]}
+                />
+            {:else}
+                <CMDLine
+                    tokens={[
+                        ["ls", "palavra-chave"],
+                        [" ", "espaco"],
+                        ["meus-projetos", "primitivo"],
+                        [" ", "espaco"],
+                        ["&>", "operador"],
+                        [" ", "espaco"],
+                        ["/dev/null", "primitivo"],
+                    ]}
+                />
+            {/if}
         </h2>
-        <ul>
+
+        <ul class={[{ mostrando_projetos }]}>
             <div class="cartao">
                 <div class="conteudo">
                     <h3>
@@ -114,11 +131,21 @@
                 <a href="https://github.com/BreakNoh/tet_rs">ver mais</a>
             </div>
         </ul>
+        <button
+            class={["mostrar"]}
+            onclick={() => (mostrando_projetos = !mostrando_projetos)}
+        >
+            {#if !mostrando_projetos}
+                &lt; mostrar &gt;
+            {:else}
+                &gt; esconder &lt;
+            {/if}
+        </button>
     </div>
 </main>
 
 <footer>
-    <div class="espacador"></div>
+    <!-- <div class="espacador"></div> -->
 
     <div class="sociais">
         <div>
@@ -149,7 +176,7 @@
 
 <style>
     main {
-        margin-top: max(2vh, 1rem);
+        margin-top: clamp(1rem, 5vw, 3rem);
 
         margin-inline: clamp(1rem, 15%, 30rem);
         @media screen and (width <= 950px) {
@@ -165,7 +192,7 @@
         font-size: clamp(16px, 5vw, 32px);
     }
     h2 {
-        margin-block: 1rem 0.5rem;
+        margin-block: 0.5rem 0.5rem;
         font-size: clamp(8px, 5vw, 24px);
     }
     h3 {
@@ -211,12 +238,21 @@
         }
     }
 
+    .sobre-mim img {
+        margin-inline: 1rem;
+    }
+    .infos {
+        flex: 2;
+    }
+
     footer {
         display: grid;
         width: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr 1fr; */
         /* justify-content: center; */
         margin-top: 3rem;
+        margin-bottom: 1rem;
+        place-content: center;
     }
     footer div {
         text-align: center;
@@ -234,9 +270,10 @@
         column-gap: 2rem;
     }
     .wrap-cod-fonte {
+        margin-top: 1rem;
         display: grid;
         padding-right: 1rem;
-        place-content: end;
+        place-content: center;
     }
 
     .wrap-cod-fonte a {
@@ -247,23 +284,58 @@
         text-decoration: none;
         color: white;
     }
+
     a:hover {
         text-decoration: underline;
+
+        font-weight: bold;
     }
 
     ul {
         margin: 0;
         padding: 0;
+        display: none;
+    }
+
+    ul.mostrando_projetos {
+        display: block;
     }
 
     .projetos {
         margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+    }
+
+    .projetos button.mostrar {
+        background-color: hsl(from var(--fundo-1) h s calc(l + 10));
+        color: var(--ter);
+        font-family: "IBM Plex Mono";
+        font-size: 1rem;
+
+        padding-block: 1rem;
+        margin-top: 1rem;
+        margin-inline: -3rem;
+
+        border-radius: 0 0 16px 16px;
+        border-style: none;
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
     }
 
     .cartao {
         display: flex;
         width: 100%;
         align-items: center;
+
+        @media screen and (width <= 750px) {
+            flex-direction: column;
+        }
     }
 
     .cartao .conteudo {
@@ -273,6 +345,11 @@
     .cartao > a {
         display: grid;
         place-content: center;
+
+        @media screen and (width <= 750px) {
+            padding-block: 1rem;
+            padding-inline: 2rem;
+        }
 
         color: var(--fundo-0);
 
@@ -284,6 +361,7 @@
 
         &:hover {
             box-shadow: 4px 4px 4px hsl(from var(--fundo-0) 0 0 8%);
+            /* font-weight: bold; */
         }
     }
 </style>
