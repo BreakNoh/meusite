@@ -22,7 +22,7 @@
     }
 }
 html {
-    background-image: url("fundo_xadrez.svg");
+    background-image: url("/fundo_xadrez.svg");
     background-size: 5rem;
 
     scrollbar-color: var(--fundo-1) var(--fundo-0);
