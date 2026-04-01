@@ -273,7 +273,6 @@
     .wrap-cod-fonte {
         margin-top: 1rem;
         display: grid;
-        padding-right: 1rem;
         place-content: center;
     }
 
